@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Movies from "./components/movies";
 
 function App() {
   return (
-    <main className ="container">
-      <h1>Hi Kenny</h1>
+    <main className="container">
+      <Movies />
     </main>
   );
 }
