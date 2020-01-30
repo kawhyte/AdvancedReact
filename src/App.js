@@ -55,22 +55,22 @@ class App extends Component {
 
   render() { 
     return (
-      <React.Fragment>
-        <NavBar totalCounters ={this.state.counters.filter(c => c.value >0).length}></NavBar>
-        <main className="container">
-          <Counters
-          counters = {this.state.counters}
-            onReset={this.handleReset}
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement}
-            onDelete={this.handleDelete}
-          ></Counters>
-        </main>
-      </React.Fragment>
+      // <React.Fragment>
+      //   <NavBar totalCounters ={this.state.counters.filter(c => c.value >0).length}></NavBar>
+      //   <main className="container">
+      //     <Counters
+      //     counters = {this.state.counters}
+      //       onReset={this.handleReset}
+      //       onIncrement={this.handleIncrement}
+      //       onDecrement={this.handleDecrement}
+      //       onDelete={this.handleDelete}
+      //     ></Counters>
+      //   </main>
+      // </React.Fragment>
   
-      // <main className="container">
-      //   <Movies />
-      // </main>
+      <main className="container">
+        <Movies />
+      </main>
     );
   }
 }
