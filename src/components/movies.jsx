@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "../components/common/like";
 import Pagination from "../components/common/pagination";
+import {paginate} from "../utils/paginate";
 
 class Movies extends Component {
-  state = { movies: getMovies(), currentPage: 1, pageSize : 4 };
+  state = { movies: getMovies(), currentPage: 1, pageSize: 3 };
 
   handleDelete = movie => {
     const movies = this.state.movies.filter(m => m._id !== movie._id);
@@ -16,17 +17,16 @@ class Movies extends Component {
   handleLike = movie => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
-    movies[index] ={...movies[index]}
+    movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked;
-    this.setState({ movies})
+    this.setState({ movies });
     console.log("clicked", movies);
-
   };
 
-  handlePageChange = (page) => {
- this.setState({currentPage:page})
-    console.log(page)
-  }
+  handlePageChange = page => {
+    this.setState({ currentPage: page });
+    console.log(page);
+  };
 
   render() {
     if (this.state.movies.length === 0) {
@@ -37,6 +37,9 @@ class Movies extends Component {
         </h1>
       );
     }
+
+    const movies = paginate(this.state.movies, this.state.currentPage,this.state.pageSize)
+    
     return (
       <div>
         <h4>
@@ -54,7 +57,7 @@ class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map(movie => (
+            {movies.map(movie => (
               <tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td>{movie.genre.name}</td>
@@ -76,11 +79,15 @@ class Movies extends Component {
                   </button>
                 </td>
               </tr>
-              
             ))}
-            </tbody>
+          </tbody>
         </table>
-          <Pagination itemsCount={this.state.movies.length} pageSize={this.state.pageSize} onPageChange ={this.handlePageChange} currentPage = {this.state.currentPage}/>
+        <Pagination
+          itemsCount={"this.state.movies.length"}
+          pageSize={this.state.pageSize}
+          onPageChange={this.handlePageChange}
+          currentPage={this.state.currentPage}
+        />
       </div>
     );
   }
