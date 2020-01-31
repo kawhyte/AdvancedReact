@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "../components/common/like";
+import Pagination from "../components/common/pagination";
 
 class Movies extends Component {
-  state = { movies: getMovies() };
+  state = { movies: getMovies(), currentPage: 1, pageSize : 4 };
 
   handleDelete = movie => {
     const movies = this.state.movies.filter(m => m._id !== movie._id);
@@ -21,6 +22,11 @@ class Movies extends Component {
     console.log("clicked", movies);
 
   };
+
+  handlePageChange = (page) => {
+ this.setState({currentPage:page})
+    console.log(page)
+  }
 
   render() {
     if (this.state.movies.length === 0) {
@@ -70,9 +76,11 @@ class Movies extends Component {
                   </button>
                 </td>
               </tr>
+              
             ))}
-          </tbody>
+            </tbody>
         </table>
+          <Pagination itemsCount={this.state.movies.length} pageSize={this.state.pageSize} onPageChange ={this.handlePageChange} currentPage = {this.state.currentPage}/>
       </div>
     );
   }
