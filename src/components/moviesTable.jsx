@@ -8,13 +8,13 @@ const MoviesTable = (props) => {
     return ( 
     <div>
     
-      <table className="table">
+      <table className="table clickable">
         <thead>
           <tr>
-            <th onClick={() => onSort('title')} scope="col">Title</th>
-            <th onClick={()=>{ onSort('genre.name')}} scope="col">Genre</th>
-            <th onClick={()=>{ onSort('numberInStock')}} scope="col">Stock</th>
-            <th onClick={()=>{ onSort('dailyRentalRate')}} scope="col">Rate</th>
+            <th  onClick={() => onSort('title')} scope="col"> <i className="fa fa-sort" aria-hidden="true"></i> {' '}Title</th>
+            <th onClick={()=>{ onSort('genre.name')}} scope="col"><i className="fa fa-sort" aria-hidden="true"></i>{' '}Genre</th>
+            <th onClick={()=>{ onSort('numberInStock')}} scope="col"> <i className="fa fa-sort" aria-hidden="true"></i>{' '}Stock</th>
+            <th onClick={()=>{ onSort('dailyRentalRate')}} scope="col"><i className="fa fa-sort" aria-hidden="true"></i>{' '}Rate</th>
          
           </tr>
         </thead>

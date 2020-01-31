@@ -12,7 +12,7 @@ class Movies extends Component {
   state = { movies: [], genres: [], currentPage: 1, pageSize: 4, sortColumn:{path:'title', order:'asc'} };
 
   componentDidMount() {
-    const updatedGenres = [{ name: "All Genres", _id: "5" }, ...getGenres()];
+    const updatedGenres = [{ name: "All Genres", _id: "" }, ...getGenres()];
     this.setState({ movies: getMovies(), genres: updatedGenres });
   }
 
@@ -94,7 +94,7 @@ class Movies extends Component {
           />
         </div>
 
-        <div className="col-2">
+        <div className="col-9">
           <h4>
             {/* <p> {this.state.movies.length} movies in the database</p> */}
             <p> {filtered.length} movies in the database</p>
