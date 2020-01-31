@@ -4,25 +4,24 @@ import Like from "../components/common/like";
 const MoviesTable = (props) => {
 
 
-     const { movies, onDelete, onLike} = props;
+     const { movies, onDelete, onLike, onSort} = props;
     return ( 
     <div>
     
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Genre</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Rate</th>
-            <th></th>
+            <th onClick={() => onSort('title')} scope="col">Title</th>
+            <th onClick={()=>{ onSort('genre.name')}} scope="col">Genre</th>
+            <th onClick={()=>{ onSort('numberInStock')}} scope="col">Stock</th>
+            <th onClick={()=>{ onSort('dailyRentalRate')}} scope="col">Rate</th>
+         
           </tr>
         </thead>
         <tbody>
           {movies.map(movie => (
             <tr key={movie._id}>
               <td>{movie.title}</td>
-              <td>{console.log("Test Movies", movies)}</td>
               <td>{movie.genre.name}</td>
               <td>{movie.numberInStock}</td>
               <td>{movie.dailyRentalRate}</td>

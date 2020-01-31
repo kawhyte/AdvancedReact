@@ -6,12 +6,13 @@ import Pagination from "../components/common/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "../components/common/listGroup";
 import MoviesTable from "../components/moviesTable";
+import _ from "lodash";
 
 class Movies extends Component {
-  state = { movies: [], genres: [], currentPage: 1, pageSize: 3 };
+  state = { movies: [], genres: [], currentPage: 1, pageSize: 4, sortColumn:{path:'title', order:'asc'} };
 
   componentDidMount() {
-    const updatedGenres = [{ name: "All Genres" }, ...getGenres()];
+    const updatedGenres = [{ name: "All Genres", _id: "5" }, ...getGenres()];
     this.setState({ movies: getMovies(), genres: updatedGenres });
   }
 
@@ -19,7 +20,7 @@ class Movies extends Component {
     const movies = this.state.movies.filter(m => m._id !== movie._id);
     console.log(movie);
     this.setState({ movies: movies });
-    console.log(movies);
+    
   };
 
   handleLike = movie => {
@@ -28,18 +29,37 @@ class Movies extends Component {
     movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked;
     this.setState({ movies });
-    console.log("clicked", movies);
+    
   };
 
   handlePageChange = page => {
     this.setState({ currentPage: page });
-    console.log(page);
+   
   };
 
   hanleGenereSelect = genre => {
     this.setState({ selectedGenre: genre, currentPage: 1 });
-    console.log(genre);
+    
   };
+
+  handleSort = path =>{
+  
+    this.setState({ sortColumn:{path, order:this.state.sortColumn.order=== 'asc'? 'desc': "asc"}})
+  
+//     const sortColumn =[...this.state.sortColumn]
+// console.log(sortColumn)
+//     if (sortColumn.path === path){
+//       sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc'
+//     }
+//     else{
+//       sortColumn.path = path;
+//       sortColumn.order = 'asc';
+//     }
+//     this.setState({ sortColumn})
+   
+    //console.log(this.state.sortColumn.order);
+
+  }
 
   render() {
     if (this.state.movies.length === 0) {
@@ -55,8 +75,10 @@ class Movies extends Component {
           )
         : this.state.movies;
 
+        const sorted = _.orderBy(filtered, [this.state.sortColumn.path], [this.state.sortColumn.order])
+
     const movies = paginate(
-      filtered,
+      sorted,
       this.state.currentPage,
       // this.state.selectedGenre,
       this.state.pageSize
@@ -82,6 +104,7 @@ class Movies extends Component {
             movies={movies}
             onLike={this.handleLike}
             onDelete={this.handleDelete}
+            onSort={this.handleSort}
           />
 
           <Pagination
